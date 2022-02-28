@@ -1,0 +1,23 @@
+#infile {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid blue;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.button {
+  background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 4px;
+  cursor: pointer;
+}
