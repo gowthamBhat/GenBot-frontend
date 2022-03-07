@@ -7,7 +7,7 @@ import ActionProvider from './bot/ActionProvider.js'
 function App() {
   return (
     <div className="App">
-      <center style={{ marginTop: '100px' }}>
+      <center>
         <Chatbot
           config={config}
           messageParser={MessageParser}

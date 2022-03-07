@@ -2,18 +2,31 @@ class MessageParser {
   constructor(actionProvider, state) {
     this.actionProvider = actionProvider
     this.state = state
+    // console.log(this.state, 'state from message parser')
   }
 
-  parse(message) {
-    let lowercaseMes = message.toLowerCase()
-    if (lowercaseMes.includes('@') && lowercaseMes.includes('.com')) {
-      //here it will parse the message and decides which response to give, the responses are declared in the action provider class
-      this.actionProvider.emailVerifyResponse()
+  parse(UserInputedMessage) {
+    let lowercaseMes = UserInputedMessage.toLowerCase()
+
+    if (
+      this.state.messages[this.state.messages.length - 1].message ===
+      'specify your email'
+    ) {
+      // console.log('user email', lowercaseMes)
+      this.actionProvider.setUserEmail(lowercaseMes)
+
+      this.actionProvider.simpleAlert('enter the name')
+    } else if (
+      this.state.messages[this.state.messages.length - 1].message ===
+      'enter the name'
+    ) {
+      this.actionProvider.setUserName(lowercaseMes)
+
+      this.actionProvider.simpleAlert('verified!, press "ready" to upload doc')
     } else if (lowercaseMes.includes('ready')) {
-      //here it will parse the message and decides which response to give, the responses are declared in the action provider class
       this.actionProvider.docFileCaller()
     } else {
-      this.actionProvider.notFoundCaller()
+      this.actionProvider.simpleAlert('sorry!, say that again ')
     }
   }
 }

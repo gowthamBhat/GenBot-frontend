@@ -3,19 +3,10 @@ class ActionProvider {
     this.createChatbotMessage = createChatbotMessage
     this.setState = setStateFunc
     this.createClientMessage = createClientMessage
+    this.user = ''
+    this.email = ''
   }
 
-  emailVerifyResponse = () => {
-    const mes = this.createChatbotMessage(
-      'verified, type "ready" to upload doc'
-    )
-    this.setChatBotMessage(mes)
-  }
-  //when the user message is irrelevant
-  notFoundCaller = () => {
-    const mes = this.createChatbotMessage('sorry!, say that again ')
-    this.setChatBotMessage(mes)
-  }
   //response for file upload
   docFileCaller = () => {
     const mes = this.createChatbotMessage('Here you can upload', {
@@ -24,10 +15,20 @@ class ActionProvider {
     this.setChatBotMessage(mes)
   }
   //to show number of files selected
-  allFilesUploadedAlert = () => {
-    const mes = this.createChatbotMessage(`all files uploaded`)
-    this.setChatBotMessage(mes)
+  simpleAlert = (msg) => {
+    this.setChatBotMessage(this.createChatbotMessage(msg))
   }
+  setUserEmail = (email) => {
+    this.email = email
+    this.setState((state) => ({ ...state, email: email }))
+    localStorage.setItem('botuseremail', email)
+  }
+  setUserName = (username) => {
+    this.user = username
+    localStorage.setItem('botusername', username)
+    this.setState((state) => ({ ...state, username: username }))
+  }
+
   setChatBotMessage = (message) => {
     this.setState((state) => ({
       ...state,

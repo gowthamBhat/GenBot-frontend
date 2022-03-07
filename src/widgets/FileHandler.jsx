@@ -4,31 +4,46 @@ import './FileHandler.css'
 
 function FileHandler(props) {
   const [file, fileState] = useState(null)
+  const username = localStorage.getItem('botusername')
+  const useremail = localStorage.getItem('botuseremail')
 
-  const { setState } = props
   let onFileChange = (event) => {
     fileState(event.target.files)
-    setState((state) => ({ ...state, files: event.target.files }))
+    // setState((state) => ({ ...state, files: event.target.files }))
 
     // props.actionProvider.allFileSelectedAlert(event.target.files.length)
   }
   const handleSubmit = () => {
     console.log('selected file', file)
 
-    if (file) saveFile(file)
-    else return
+    if (file) {
+      saveFile(file)
+      props.actionProvider.simpleAlert('files are uploading please wait')
+    } else return
   }
   const saveFile = async (pdfFile) => {
-    let fd = new FormData()
-    for (let i = 0; i < pdfFile.length; i++) fd.append('pdfFile', pdfFile[i])
+    try {
+      let fd = new FormData()
+      fd.append('username', username)
+      fd.append('email', useremail)
 
-    console.log(fd, 'form data')
+      for (let i = 0; i < pdfFile.length; i++) fd.append('pdfFile', pdfFile[i])
 
-    const { data } = await axios.post('http://localhost:8000/mailroute', fd)
-    if (data.akn) {
-      props.actionProvider.allFilesUploadedAlert()
+      console.log(fd, 'form data')
+
+      const { data } = await axios.post('http://localhost:8000/mailroute', fd)
+      if (data.akn) {
+        props.actionProvider.simpleAlert('All files are uploaded')
+      }
+      console.log(data, 'res from backend')
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        props.actionProvider.simpleAlert(
+          'Something went wrong, upload failed!!'
+        )
+        // toast.error('Email or Password is Wrong')
+      }
     }
-    console.log(data, 'res from backend')
   }
 
   return (

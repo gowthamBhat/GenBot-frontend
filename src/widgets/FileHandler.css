@@ -2,14 +2,14 @@
   display: none;
 }
 .custom-file-upload {
-  border: 1px solid blue;
+  border: 1px solid #376b7e;
   display: inline-block;
   padding: 5px 10px;
   border-radius: 10px;
   cursor: pointer;
 }
 .button {
-  background-color: blue; /* Green */
+  background-color: #376b7e; /* Green */
   border: none;
   color: white;
   padding: 8px;
