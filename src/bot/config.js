@@ -1,10 +1,14 @@
 import { createChatBotMessage } from 'react-chatbot-kit'
 import FileHandler from '../widgets/FileHandler'
+import StartupPrompt from './../widgets/StartupPrompt'
+import StatusCheck from './../widgets/StatusCheck'
+import Interview from './../widgets/Interview'
 
 const config = {
   initialMessages: [
-    createChatBotMessage(`Hello Genpactian`),
-    createChatBotMessage(`specify your email`)
+    createChatBotMessage(`Hello Genpacter, choose one to continue`, {
+      widget: 'startupprompt'
+    })
   ],
   botName: 'Gen-bot',
   state: {
@@ -13,17 +17,30 @@ const config = {
   },
   customStyles: {
     botMessageBox: {
-      backgroundColor: '#376B7E'
+      backgroundColor: '#070F1B'
     },
     chatButton: {
-      backgroundColor: '#5ccc9d'
+      backgroundColor: '#FF555F'
     }
   },
   widgets: [
     {
       widgetName: 'fhandle',
-      widgetFunc: (props) => <FileHandler {...props} />,
-      mapStateToProps: ['files']
+      widgetFunc: (props) => <FileHandler {...props} />
+      // mapStateToProps: ['files']
+    },
+    {
+      widgetName: 'startupprompt',
+      widgetFunc: (props) => <StartupPrompt {...props} />
+    },
+    {
+      widgetName: 'statusCheck',
+      widgetFunc: (props) => <StatusCheck {...props} />
+    },
+
+    {
+      widgetName: 'interview',
+      widgetFunc: (props) => <Interview {...props} />
     }
   ]
 }

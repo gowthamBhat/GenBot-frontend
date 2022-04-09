@@ -27,15 +27,15 @@ function FileHandler(props) {
       fd.append('username', username)
       fd.append('email', useremail)
 
-      for (let i = 0; i < pdfFile.length; i++) fd.append('pdfFile', pdfFile[i])
-
-      console.log(fd, 'form data')
+      for (let i = 0; i < pdfFile.length; i++) fd.append('pdfFile', pdfFile[i]) //appending multiple files
 
       const { data } = await axios.post('http://localhost:8000/mailroute', fd)
-      if (data.akn) {
-        props.actionProvider.simpleAlert('All files are uploaded')
+      console.log('akn data', data)
+
+      if (data) {
+        props.actionProvider.simpleAlert('Documents submitted')
+        props.actionProvider.simpleAlert('Thank you')
       }
-      console.log(data, 'res from backend')
     } catch (error) {
       if (error.response && error.response.status === 400) {
         props.actionProvider.simpleAlert(

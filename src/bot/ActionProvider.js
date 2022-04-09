@@ -14,9 +14,24 @@ class ActionProvider {
     })
     this.setChatBotMessage(mes)
   }
+  checkStatus = () => {
+    const mes = this.createChatbotMessage(
+      'Checking status...,wait for few seconds',
+      {
+        widget: 'statusCheck'
+      }
+    )
+    this.setChatBotMessage(mes)
+  }
   //to show number of files selected
   simpleAlert = (msg) => {
     this.setChatBotMessage(this.createChatbotMessage(msg))
+  }
+  scheduleInterview = () => {
+    const mes = this.createChatbotMessage('Select date and time', {
+      widget: 'interview'
+    })
+    this.setChatBotMessage(mes)
   }
   setUserEmail = (email) => {
     this.email = email
